@@ -42,6 +42,7 @@ restart_text = font.render("Play Again", True, (0, 0, 0))
 restart_rect = restart_text.get_rect(center=(400, 300))
 
 restart_game = False
+game_active = True
 
 while running:
     dt = clock.tick(60)  # Limit the frame rate to 60 FPS
@@ -67,6 +68,7 @@ while running:
                 ship.stop()
         elif event.type == MOUSEBUTTONDOWN:
             if game_over and restart_rect.collidepoint(event.pos):
+                game_active = True
                 restart_game = True
                 game_over = False
                 game_over_delay = None
@@ -74,19 +76,21 @@ while running:
                 comet_group.empty()
                 missile_group.empty()
 
-    # Update comet timer
-    comet_timer += dt
+    if game_active:
 
-    # Create comets with a delay
-    if comet_timer >= comet_delay:
-        comet = Comet(settings.screen_width, settings.comet_speed)
-        comet_group.add(comet)
-        comet_timer = 0
+        # Update comet timer
+        comet_timer += dt
 
-    # Update ship, comets, and missiles
-    ship.update()
-    comet_group.update()
-    missile_group.update()
+        # Create comets with a delay
+        if comet_timer >= comet_delay:
+            comet = Comet(settings.screen_width, settings.comet_speed)
+            comet_group.add(comet)
+            comet_timer = 0
+
+        # Update ship, comets, and missiles
+        ship.update()
+        comet_group.update()
+        missile_group.update()
 
     # Check for collisions between comets and missiles
     collisions = pygame.sprite.groupcollide(comet_group, missile_group, True, True)
@@ -98,6 +102,7 @@ while running:
     for ship_collision in ship_collisions:
         scoreboard.decrease_ship()
         if scoreboard.ship_count <= 0:
+            game_active = False  # Set game_active to False to freeze the screen
             if not game_over:
                 game_over = True
                 game_over_delay = pygame.time.get_ticks()
