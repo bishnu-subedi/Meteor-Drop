@@ -38,7 +38,7 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 48)  # Define the font for the restart button
 
-restart_text = font.render("Play Again", True, (0, 0, 0))
+restart_text = font.render("Play Again", True, (255, 255, 255))
 restart_rect = restart_text.get_rect(center=(400, 300))
 
 restart_game = False
@@ -108,10 +108,11 @@ while running:
                 game_over_delay = pygame.time.get_ticks()
 
     # Draw the screen
-    screen.fill((0, 0, 0))
+    screen.fill((255, 255, 255))
     comet_group.draw(screen)
     missile_group.draw(screen)
-    pygame.draw.rect(screen, (0, 255, 0), ship.rect)
+    screen.blit(ship.image, ship.rect) # Draw the ship image
+    
 
     # Update the scoreboard
     scoreboard.update_score()
@@ -120,7 +121,7 @@ while running:
     # Show "game over" if all ships are depleted
     if game_over:
         scoreboard.show_game_over()
-        pygame.draw.rect(screen, (255, 255, 255), (200, 250, 400, 100))  # Restart button background
+        pygame.draw.rect(screen, (0, 0, 0), (200, 250, 400, 100))  # Restart button background
         screen.blit(restart_text, restart_rect)
 
     pygame.display.flip()

@@ -7,7 +7,7 @@ class Scoreboard:
         self.screen_rect = screen.get_rect()
 
         # Font settings for score and ship count
-        self.text_color = (255, 255, 255)
+        self.text_color = (0, 0, 0)
         self.font = pygame.font.SysFont(None, 48)
 
         # Initialize score and ship count

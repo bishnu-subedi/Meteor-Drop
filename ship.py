@@ -1,13 +1,12 @@
 import pygame
 from pygame.locals import *
 
-WHITE = (255, 255, 255)
+#WHITE = (255, 255, 255)
 
 class Ship(pygame.sprite.Sprite):
     def __init__(self, settings):
         super().__init__()
-        self.image = pygame.Surface((50, 50))
-        self.image.fill(WHITE)
+        self.image = pygame.image.load('images/ship.png').convert_alpha()
         self.rect = self.image.get_rect()
         self.rect.x = settings.screen_width // 2 - self.rect.width // 2
         self.rect.y = settings.screen_height - self.rect.height
