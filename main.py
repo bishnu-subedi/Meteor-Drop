@@ -38,7 +38,7 @@ clock = pygame.time.Clock()
 
 font = pygame.font.SysFont(None, 48)  # Define the font for the restart button
 
-restart_text = font.render("Restart", True, (0, 0, 0))
+restart_text = font.render("Play Again", True, (0, 0, 0))
 restart_rect = restart_text.get_rect(center=(400, 300))
 
 restart_game = False
@@ -56,7 +56,7 @@ while running:
                 ship.move_left()
             elif event.key == K_RIGHT:
                 ship.move_right()
-            elif event.key == K_SPACE and len(missile_group) < settings.missile_limit:
+            elif event.key == K_SPACE:
                 missile = Missile(settings.screen_width, settings.screen_height, ship.rect)
                 missile_group.add(missile)
 
@@ -138,4 +138,4 @@ while running:
         missile_group.empty()
 
 # Quit the game
-pygame.quit()
+# pygame.quit()
