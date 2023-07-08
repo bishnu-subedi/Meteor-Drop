@@ -27,16 +27,16 @@ scoreboard = Scoreboard(settings, screen)
 
 # Game loop
 running = True
-game_over = False  # New variable for game over state
+game_over = False  
 game_over_delay = None
 
 
 comet_timer = 0
-comet_delay = 1000  # Adjust the delay value (in milliseconds) as needed
+comet_delay = 1000  # Delay value (in milliseconds)
 
 clock = pygame.time.Clock()
 
-font = pygame.font.SysFont(None, 48)  # Define the font for the restart button
+font = pygame.font.SysFont(None, 48)  # Font for the restart button (Play again)
 
 restart_text = font.render("Play Again", True, (255, 255, 255))
 restart_rect = restart_text.get_rect(center=(400, 300))
@@ -113,7 +113,6 @@ while running:
     missile_group.draw(screen)
     screen.blit(ship.image, ship.rect) # Draw the ship image
     
-
     # Update the scoreboard
     scoreboard.update_score()
     scoreboard.update_ships()
@@ -126,14 +125,6 @@ while running:
 
     pygame.display.flip()
 
-
-    # # Check if game over delay has been set
-    # if game_over_delay is not None:
-    #     elapsed_time = pygame.time.get_ticks() - game_over_delay
-    #     if elapsed_time >= 2000:  # Display the game over screen for 2000 milliseconds (2 seconds)
-    #         game_over_delay = None
-    #         running = False
-
     # Restart the game if requested
     if restart_game:
         restart_game = False
@@ -142,6 +133,3 @@ while running:
         scoreboard.reset()
         comet_group.empty()
         missile_group.empty()
-
-# Quit the game
-# pygame.quit()
