@@ -1,7 +1,7 @@
 import pygame
 from pygame.locals import *
 
-RED = (255, 0, 0)
+RED = (255, 0, 0) # Missile color
 
 class Missile(pygame.sprite.Sprite):
     def __init__(self, screen_width, screen_height, ship_rect):
@@ -11,7 +11,7 @@ class Missile(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.centerx = ship_rect.centerx
         self.rect.bottom = ship_rect.top
-        self.speed = -10  # Adjust the missile speed as needed
+        self.speed = -10  # Missile speed
 
     def update(self):
         self.rect.y += self.speed

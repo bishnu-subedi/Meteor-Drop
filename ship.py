@@ -1,8 +1,6 @@
 import pygame
 from pygame.locals import *
 
-#WHITE = (255, 255, 255)
-
 class Ship(pygame.sprite.Sprite):
     def __init__(self, settings):
         super().__init__()
@@ -18,10 +16,10 @@ class Ship(pygame.sprite.Sprite):
         self.rect.x = max(0, min(self.rect.x, self.settings.screen_width - self.rect.width))
 
     def move_left(self):
-        self.speed = -5  # Adjust the ship speed as needed
+        self.speed = -5  # Ship speed moving left
 
     def move_right(self):
-        self.speed = 5  # Adjust the ship speed as needed
+        self.speed = 5  # Ship speed moving right
 
     def stop(self):
         self.speed = 0

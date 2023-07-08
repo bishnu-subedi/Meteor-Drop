@@ -1,8 +1,6 @@
 import pygame
 import random
 
-#WHITE = (255, 255, 255)
-
 class Meteor(pygame.sprite.Sprite):
     def __init__(self, screen_width, speed):
         super().__init__()
