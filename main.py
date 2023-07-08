@@ -2,7 +2,7 @@ import pygame
 from pygame.locals import *
 import random
 from settings import Settings
-from comet import Comet
+from meteor import Meteor
 from ship import Ship
 from missile import Missile
 from scoreboard import Scoreboard
@@ -13,10 +13,10 @@ pygame.init()
 # Set up the screen
 settings = Settings()
 screen = pygame.display.set_mode((settings.screen_width, settings.screen_height))
-pygame.display.set_caption("Comet Game")
+pygame.display.set_caption("Meteor Game")
 
-# Create comet group
-comet_group = pygame.sprite.Group()
+# Create meteor group
+meteor_group = pygame.sprite.Group()
 missile_group = pygame.sprite.Group()
 
 # Create ship
@@ -31,8 +31,8 @@ game_over = False
 game_over_delay = None
 
 
-comet_timer = 0
-comet_delay = 1000  # Delay value (in milliseconds)
+meteor_timer = 0
+meteor_delay = 1000  # Delay value (in milliseconds)
 
 clock = pygame.time.Clock()
 
@@ -73,32 +73,32 @@ while running:
                 game_over = False
                 game_over_delay = None
                 scoreboard.reset()
-                comet_group.empty()
+                meteor_group.empty()
                 missile_group.empty()
 
     if game_active:
 
-        # Update comet timer
-        comet_timer += dt
+        # Update meteor timer
+        meteor_timer += dt
 
-        # Create comets with a delay
-        if comet_timer >= comet_delay:
-            comet = Comet(settings.screen_width, settings.comet_speed)
-            comet_group.add(comet)
-            comet_timer = 0
+        # Create meteors with a delay
+        if meteor_timer >= meteor_delay:
+            meteor = Meteor(settings.screen_width, settings.meteor_speed)
+            meteor_group.add(meteor)
+            meteor_timer = 0
 
-        # Update ship, comets, and missiles
+        # Update ship, meteors, and missiles
         ship.update()
-        comet_group.update()
+        meteor_group.update()
         missile_group.update()
 
-    # Check for collisions between comets and missiles
-    collisions = pygame.sprite.groupcollide(comet_group, missile_group, True, True)
+    # Check for collisions between meteors and missiles
+    collisions = pygame.sprite.groupcollide(meteor_group, missile_group, True, True)
     for collision in collisions:
         scoreboard.score += 1
 
-    # Check for collisions between ship and comets
-    ship_collisions = pygame.sprite.spritecollide(ship, comet_group, True)
+    # Check for collisions between ship and meteors
+    ship_collisions = pygame.sprite.spritecollide(ship, meteor_group, True)
     for ship_collision in ship_collisions:
         scoreboard.decrease_ship()
         if scoreboard.ship_count <= 0:
@@ -109,7 +109,7 @@ while running:
 
     # Draw the screen
     screen.fill((255, 255, 255))
-    comet_group.draw(screen)
+    meteor_group.draw(screen)
     missile_group.draw(screen)
     screen.blit(ship.image, ship.rect) # Draw the ship image
     
@@ -131,5 +131,5 @@ while running:
         game_over = False
         game_over_delay = None
         scoreboard.reset()
-        comet_group.empty()
+        meteor_group.empty()
         missile_group.empty()
